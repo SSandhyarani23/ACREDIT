@@ -1,0 +1,60 @@
+{
+  "facility": {
+    "phoneNumber": {
+      "first": "654",
+      "second": "567",
+      "third": "8999"
+    },
+    "faxNumber": {
+      "first": "654",
+      "second": "567",
+      "third": "8999"
+    },
+    "owner": {
+      "name": "John Doe"
+    }
+  },
+
+  "supervisingPhysician": {
+    "firstName": "Adam",
+    "lastName": "Smith",
+    "degreeValue": "5",
+    "email": "'fsp@gmail.com'"
+  },
+
+  "administrator": {
+    "firstName": "Jane",
+    "lastName": "Williams",
+    "degreeValue": "BS",
+    "credentials": {
+      "arrtRt": true,
+      "bsAfter2011": true,
+      "cci": true,
+      "rvs": true
+    },
+    "phoneNumber": {
+      "first": "654",
+      "second": "567",
+      "third": "8999"
+    },
+    "email": "jane.williams@example.com"
+  },
+
+  "accountsPayableContact": {
+    "firstName": "Emily",
+    "lastName": "Johnson",
+    "phoneNumber": {
+      "first": "654",
+      "second": "567",
+      "third": "8999"
+    },
+    "email": "fapc@gmail.com"
+  },
+
+  "practiceSetting": {
+    "selectedPracticeSettingId": "1",
+    "interpretingPhysicians": "1",
+    "facilityType": "1",
+    "locationType": "1"
+  }
+}

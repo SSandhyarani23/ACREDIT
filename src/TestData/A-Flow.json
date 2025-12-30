@@ -1,0 +1,11 @@
+{
+    "UserName": "Sandhya",
+    "Password": "",
+
+    "physician" : 
+    {
+        "UserName": "Sandhya",
+        "Password": ""
+    },
+    "dashboard": "https://acreditplus-cloud-uat-one.acr.org/ACReditPlus/Facility/Dashboard"
+}
