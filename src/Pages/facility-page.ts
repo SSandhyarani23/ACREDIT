@@ -38,7 +38,7 @@ export class FacilityPage {
     }
 
     async openFacilityPage() {
-        
+        await this.page.waitForTimeout(15000);
         // Wait until the Facility link is visible and clickable
         await this.facilityLink.waitFor({ state: 'visible', timeout : 20000 });
         await this.facilityLink.click();

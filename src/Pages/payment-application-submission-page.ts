@@ -60,6 +60,8 @@ export class PaymentSubmissionPage {
 
   /* ---------------- Confirmation ---------------- */
   async verifySubmissionConfirmation(expectedText: string = 'Application Submitted Successfully'): Promise<void> {
+    await this.page.waitForTimeout(3000);
+    await this.page.waitForTimeout(3000);
     await expect(this.confirmationHeader).toContainText(expectedText);
   }
 

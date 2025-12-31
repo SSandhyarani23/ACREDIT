@@ -69,6 +69,8 @@ export class FacilityDetailsPage {
   // Facility Owner Information
   // ------------------------------
   async enterPhoneFaxNumber(phone1:string, phone2:string,phone3:string, fax1:string, fax2:string,fax3:string) {
+    
+    await this.page.waitForTimeout(5000);
     await this.facilityPhoneFirst.fill(phone1);//'654');
     await this.facilityPhoneSecond.fill(phone2);//'567');
     await this.facilityPhoneThird.fill(phone3);//'8999');
@@ -79,6 +81,7 @@ export class FacilityDetailsPage {
   }
 
   async enterFacilityOwner(ownerName: string) {
+    await this.page.waitForTimeout(5000);
     await this.facilityOwnerTextbox.fill(ownerName);
   }
 
@@ -86,6 +89,7 @@ export class FacilityDetailsPage {
   // Facility Supervising Physician Information
   // ------------------------------
   async enterSupervisingPhysician(firstName: string, lastName: string, degreeValue: string, email: string) {
+    await this.page.waitForTimeout(5000);
     await this.supervisingPhysicianFirstName.fill(firstName);
     await this.page.getByRole('row', { name: `Name: ${firstName} First Name MI Last` })
       .getByLabel('Last Name')
@@ -99,6 +103,7 @@ export class FacilityDetailsPage {
   // Facility Administrator Information
   // ------------------------------
   async enterAdministrator(firstName: string, lastName: string, degreeValue: string, email: string, adminphone1:string, adminphone2:string,adminphone3:string) {
+    await this.page.waitForTimeout(5000);
     await this.administratorFirstName.fill(firstName);
     await this.page.getByRole('row', { name: `Name: ${firstName} First Name MI Last` })
       .getByLabel('Last Name')
@@ -127,7 +132,8 @@ export class FacilityDetailsPage {
   // ------------------------------
   // Facility Accounts Payable Contact Information
   // ------------------------------
-  async enterAccountsPayableContact(firstName: string, lastName: string, email: string, apPhone1:string,apPhone2:string,apPhone3:string) {
+  async enterAccountsPayableContact(firstName: string, lastName: string, email: string, apPhone1:string, apPhone2:string, apPhone3:string) {
+    await this.page.waitForTimeout(5000);
     await this.page.getByRole('row', { name: 'Name: First Name MI Last Name' })
       .getByLabel('First Name')
       .fill(firstName);
@@ -136,8 +142,8 @@ export class FacilityDetailsPage {
       .fill(lastName);
 
     await this.accountsPayablePhoneFirst.fill(apPhone1);//'654');
-    await this.accountsPayablePhoneSecond.fill(apPhone1);//'567');
-    await this.accountsPayablePhoneThird.fill(apPhone1);//'8999');
+    await this.accountsPayablePhoneSecond.fill(apPhone2);//'567');
+    await this.accountsPayablePhoneThird.fill(apPhone3);//'8999');
 
     await this.page.getByRole('row', { name: 'Email Address:', exact: true })
       .getByLabel('Email Address')
@@ -149,6 +155,7 @@ export class FacilityDetailsPage {
   // Practice Setting Information
   // ------------------------------
   async selectPracticeSettingOptions(practiceSetting:string, interpretPhys:string, facilitytype:string,  locationtype:string) {
+    await this.page.waitForTimeout(5000);
     await this.practiceSettingDropdown.selectOption(practiceSetting);//'1');
     await this.page.getByLabel('The interpreting physicians').selectOption(interpretPhys);//'1');
     await this.page.getByLabel('The facility type of this').selectOption(facilitytype);//'1');
@@ -159,6 +166,8 @@ export class FacilityDetailsPage {
   // Click Next: Survey Agreement
   // ------------------------------
   async clickNextSurveyAgreement() {
+    await this.page.waitForTimeout(5000);
     await this.nextSurveyAgreementButton.click();
+    await this.page.waitForTimeout(5000);
   }
 }

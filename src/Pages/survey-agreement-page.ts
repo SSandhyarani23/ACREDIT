@@ -17,6 +17,7 @@ export class SurveyAgreementPage {
    * Select Print Title of Practice Site and proceed to Modality Selection
    */
   async selectPrintTitleAndGoNext(value: string): Promise<void> {
+    await this.page.waitForTimeout(5000);
     await this.printTitleDropdown.waitFor({ state: 'visible' });
     await this.printTitleDropdown.selectOption(value);
 

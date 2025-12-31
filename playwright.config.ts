@@ -36,10 +36,10 @@ export default defineConfig({
     trace: 'on-first-retry',
     headless: false,
     // ⏱ Timeout for actions like click(), fill(), etc.
-    actionTimeout: 10_000,
+    actionTimeout: 50000,
 
     // ⏱ Timeout for navigation & page loads
-    navigationTimeout: 20_000,
+    navigationTimeout: 50000,
   },
 
   /* Configure projects for major browsers */

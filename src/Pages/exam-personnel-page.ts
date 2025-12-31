@@ -86,15 +86,16 @@ export class ExamPersonnelPage {
   /* =========================
      Interpreting Radiologist
      ========================= */
-  async addInterpretingRadiologist(lastName: string, firstName: string, email: string, degreeOption: string) {
+  async addInterpretingRadiologist(lastName: string, firstName: string,
+     email: string, degree1: string, degree2: string, degreeOption: string) {
     await this.addRadiologistButton.click();
     await this.radiologistLastNameInput.fill(lastName);
     await this.radiologistFirstNameInput.fill(firstName);
     await this.radiologistEmailInput.fill(email);
 
     await this.radiologistSelectLink.click();
-    await this.page.getByRole('checkbox', { name: 'M.D.' }).check();
-    await this.page.locator('label').filter({ hasText: 'D.O.' }).click();
+    await this.page.getByRole('checkbox', { name: degree1 }).check();
+    await this.page.locator('label').filter({ hasText: degree2 }).click();
     await this.radiologistConfirmButton.click();
 
     await this.radiologistDegreeDropdown.selectOption(degreeOption);
@@ -103,22 +104,24 @@ export class ExamPersonnelPage {
   /* =========================
      Medical Physicist / MR
      ========================= */
-  async addMedicalPhysicist(lastName: string, firstName: string, email: string) {
+  async addMedicalPhysicist(lastName: string, firstName: string, email: string, degree1: string, degree2: string) {
     await this.addPhysicistButton.click();
     await this.physicistLastNameInput.fill(lastName);
     await this.physicistFirstNameInput.fill(firstName);
     await this.physicistEmailInput.fill(email);
 
     await this.physicistSelectLink.click();
-    await this.page.getByRole('checkbox', { name: 'D.O.' }).check();
-    await this.page.getByRole('checkbox', { name: 'M.D.' }).check();
+    await this.page.getByRole('checkbox', { name: degree1 }).check();
+    await this.page.getByRole('checkbox', { name: degree2 }).check();
     await this.physicistConfirmButton.click();
   }
 
   /* =========================
      Technologist
      ========================= */
-  async addTechnologist(lastName: string, firstName: string, email: string) {
+  async addTechnologist(lastName: string, firstName: string, 
+    email: string, degree1: string, degree2: string, 
+    certficateARRT: string, certficateCT: string, certFilterCCI: string, certificateRVS: string) {
     await this.addTechnologistButton.click();
     await this.technologistLastNameInput.fill(lastName);
     await this.technologistFirstNameInput.fill(firstName);
@@ -126,16 +129,16 @@ export class ExamPersonnelPage {
 
     // Degree Selection
     await this.technologistDegreeDialog.click();
-    await this.page.getByRole('checkbox', { name: 'D.O.' }).check();
-    await this.page.getByRole('checkbox', { name: 'M.D.' }).check();
+    await this.page.getByRole('checkbox', { name: degree1 }).check();
+    await this.page.getByRole('checkbox', { name: degree2 }).check();
     await this.technologistConfirmButton.click();
 
     // Certification Selection
     await this.technologistCertificationSelectLink.click();
-    await this.page.getByRole('checkbox', { name: 'ARRT (RT)' }).check();
-    await this.page.getByRole('checkbox', { name: 'CT' }).check();
-    await this.page.locator('label').filter({ hasText: 'CCI' }).click();
-    await this.page.getByRole('checkbox', { name: 'RVS' }).check();
+    await this.page.getByRole('checkbox', { name: certficateARRT }).check();
+    await this.page.getByRole('checkbox', { name: certficateCT }).check();
+    await this.page.locator('label').filter({ hasText: certFilterCCI }).click();
+    await this.page.getByRole('checkbox', { name: certificateRVS }).check();
     await this.technologistCertificationConfirmButton.click();
   }
 

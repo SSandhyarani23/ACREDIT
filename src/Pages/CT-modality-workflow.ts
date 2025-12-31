@@ -33,6 +33,7 @@ export class CTModalityPage {
   private adultCheckbox: Locator;
   private headNeckCheckbox: Locator;
   private nextExamSelectionButton: Locator;
+  
 
   constructor(page: Page) {
     this.page = page;
@@ -76,7 +77,14 @@ export class CTModalityPage {
 
   /* ---------------- Modality Selection ---------------- */
   async selectComputedTomography(): Promise<void> {
+    await this.page.waitForTimeout(1000);
     await this.computedTomographyCheckbox.check();
+    await this.nextModalityInfoButton.click();
+  }
+
+    /* ---------------- Modality Selection ---------------- */
+  async selectnextModalityInCMSInfo(): Promise<void> {
+    await this.page.waitForTimeout(1000);    
     await this.nextModalityInfoButton.click();
   }
 
@@ -88,6 +96,8 @@ export class CTModalityPage {
     phone: { first: string; second: string; third: string },
     email: string
   ): Promise<void> {
+
+    await this.page.waitForTimeout(1000);
     await this.supervisingPhysicianRow.getByLabel('First Name').fill(firstName);
     await this.supervisingPhysicianRow.getByLabel('Last Name').fill(lastName);
     await this.supervisingPhysicianDegree.selectOption(degree);
@@ -107,6 +117,7 @@ export class CTModalityPage {
     phone: { first: string; second: string; third: string },
     email: string
   ): Promise<void> {
+    await this.page.waitForTimeout(1000);
     await this.technologistRow.getByLabel('First Name').fill(firstName);
     await this.technologistRow.getByLabel('Last Name').fill(lastName);
 
@@ -120,6 +131,7 @@ export class CTModalityPage {
 
   /* ---------------- Unit & Physician Quality ---------------- */
   async enterUnitAndPhysicianQuality(units: string, peerReviewOption: string, qualityScore: string): Promise<void> {
+    await this.page.waitForTimeout(1000);
     await this.numberOfUnitsInput.fill(units);
     await this.nextPhysicianQualityButton.click();
 
@@ -142,15 +154,18 @@ export class CTModalityPage {
     serialNumber: string,
     operatingLocation: string
   ): Promise<void> {
+    await this.page.waitForTimeout(1000);
     await this.page.getByRole('button', { name: /Next: CTAP Unit/i }).nth(1).click();
 
     await this.roomLocationInput.fill(roomLocation);
     await this.manufacturerDropdown.selectOption(manufacturer);
     await this.modelNameDropdown.selectOption(modelName);
+    await this.yearManufacturedInput.click();
     await this.yearManufacturedInput.fill(yearManufactured);
     await this.serialNumberInput.fill(serialNumber);
     await this.operatingLocationDropdown.selectOption(operatingLocation);
 
+    // Need to handle the code to check for different options
     await this.adultCheckbox.check();
     await this.headNeckCheckbox.check();
 
