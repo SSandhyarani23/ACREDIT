@@ -86,4 +86,42 @@ export class MyApplicationsPage extends BasePage {
   async signOut(): Promise<void> {
     await this.signOutLink.click();
   }
+
+  /**
+   * Navigates to the 'My Applications' page and verifies that the 'Print Legal Forms for Submission' link is visible for a submitted application that requires legal forms.
+   * This method groups all steps required to validate the visibility of the 'Print Legal Forms for Submission' link for the relevant application.
+   * Preconditions: User is logged in and application is submitted & requires legal forms.
+   * Post-conditions: User remains on the 'My Applications' page.
+   *
+   * @param applicationId - The unique identifier of the submitted application (if available)
+   * @returns {Promise<boolean>} - Returns true if the link is visible, false otherwise
+   */
+  async verifyPrintLegalFormsLinkVisibilityForSubmittedApplication(applicationId?: string): Promise<boolean> {
+    // Ensure we are on the My Applications page
+    await this.expectOnMyApplicationsPage();
+    await this.waitForLoad();
+
+    // If applicationId is provided, select the application row (reuse existing method if available)
+    if (applicationId) {
+      await this.selectApplicationById(applicationId);
+      await this.waitForApplicationDetailsLoad();
+    }
+
+    // Check visibility of the 'Print Legal Forms for Submission' link
+    // Reuse existing locator if present, otherwise use a robust locator
+    const printLegalFormsLink = this.page.locator("a:has-text('Print legal forms for Submission')");
+    await printLegalFormsLink.waitFor({ state: 'visible', timeout: 5000 });
+    return await printLegalFormsLink.isVisible();
+  }
+
+  /**
+   * Clicks the 'Print Legal Forms for Submission' link for the selected application.
+   * Assumes the link is visible and enabled.
+   */
+  async clickPrintLegalFormsForSubmission() {
+    const printLegalFormsLink = this.page.locator("a:has-text('Print legal forms for Submission')");
+    await printLegalFormsLink.waitFor({ state: 'visible', timeout: 5000 });
+    await printLegalFormsLink.click();
+    // Optionally, add logic to handle new tab/window if link opens in a new tab
+  }
 }

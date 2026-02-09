@@ -1,0 +1,174 @@
+// Test data for: Verify 'Print Legal Forms for Submission' link visibility for submitted applications
+[
+  {
+    "testCaseId": "TCD_FT_01_FR-1",
+    "testCaseName": "Verify 'Print Legal Forms for Submission' link visibility for submitted applications",
+    "priority": "High",
+    "type": "Functional",
+    "preconditions": {
+      "userRole": "FacilityUser",
+      "isLoggedIn": true,
+      "applicationStatus": "Submitted",
+      "requiresLegalForms": true
+    },
+    "applicationData": {
+      "applicationId": "APP-10001",
+      "facilityName": "Edgeview Medical Center",
+      "facilityId": "FAC-9001",
+      "submissionDate": "2024-06-05T10:15:00Z",
+      "legalFormsRequired": [
+        "Ownership Disclosure",
+        "IRS 501(c)(3) Letter",
+        "State License"
+      ],
+      "legalFormsUploaded": [
+        "Ownership Disclosure"
+      ],
+      "legalFormsPending": [
+        "IRS 501(c)(3) Letter",
+        "State License"
+      ]
+    },
+    "user": {
+      "username": "facilityuser1",
+      "password": "Test@1234",
+      "email": "facilityuser1@acredit.org"
+    },
+    "expectedResult": {
+      "printLegalFormsLinkVisible": true,
+      "currentPage": "My Applications"
+    },
+    "locators": {
+      "myApplicationsTab": "//a[contains(text(),'My Applications')]",
+      "applicationRow": "//tr[td[contains(text(),'APP-10001')]]",
+      "printLegalFormsLink": "//a[contains(text(),'Print Legal Forms for Submission')]",
+      "statusColumn": "//td[contains(@class,'status') and text()='Submitted']",
+      "legalFormsSection": "//section[@id='legal-forms']"
+    },
+    "notes": "Standard case: Application submitted, some legal forms uploaded, others pending. Link should be visible."
+  },
+  {
+    "testCaseId": "TCD_FT_01_FR-1_EdgeCase1",
+    "testCaseName": "Verify link not visible when no legal forms required",
+    "priority": "High",
+    "type": "Functional",
+    "preconditions": {
+      "userRole": "FacilityUser",
+      "isLoggedIn": true,
+      "applicationStatus": "Submitted",
+      "requiresLegalForms": false
+    },
+    "applicationData": {
+      "applicationId": "APP-10002",
+      "facilityName": "NoForms Clinic",
+      "facilityId": "FAC-9002",
+      "submissionDate": "2024-06-05T12:00:00Z",
+      "legalFormsRequired": [],
+      "legalFormsUploaded": [],
+      "legalFormsPending": []
+    },
+    "user": {
+      "username": "facilityuser2",
+      "password": "Test@5678",
+      "email": "facilityuser2@acredit.org"
+    },
+    "expectedResult": {
+      "printLegalFormsLinkVisible": false,
+      "currentPage": "My Applications"
+    },
+    "locators": {
+      "myApplicationsTab": "//a[contains(text(),'My Applications')]",
+      "applicationRow": "//tr[td[contains(text(),'APP-10002')]]",
+      "printLegalFormsLink": "//a[contains(text(),'Print Legal Forms for Submission')]",
+      "statusColumn": "//td[contains(@class,'status') and text()='Submitted']",
+      "legalFormsSection": "//section[@id='legal-forms']"
+    },
+    "notes": "Edge case: Application does not require legal forms. Link should not be visible."
+  },
+  {
+    "testCaseId": "TCD_FT_01_FR-1_EdgeCase2",
+    "testCaseName": "Verify link not visible for non-submitted application",
+    "priority": "High",
+    "type": "Functional",
+    "preconditions": {
+      "userRole": "FacilityUser",
+      "isLoggedIn": true,
+      "applicationStatus": "Draft",
+      "requiresLegalForms": true
+    },
+    "applicationData": {
+      "applicationId": "APP-10003",
+      "facilityName": "Draft Status Hospital",
+      "facilityId": "FAC-9003",
+      "submissionDate": null,
+      "legalFormsRequired": [
+        "Ownership Disclosure"
+      ],
+      "legalFormsUploaded": [],
+      "legalFormsPending": [
+        "Ownership Disclosure"
+      ]
+    },
+    "user": {
+      "username": "facilityuser3",
+      "password": "Test@9012",
+      "email": "facilityuser3@acredit.org"
+    },
+    "expectedResult": {
+      "printLegalFormsLinkVisible": false,
+      "currentPage": "My Applications"
+    },
+    "locators": {
+      "myApplicationsTab": "//a[contains(text(),'My Applications')]",
+      "applicationRow": "//tr[td[contains(text(),'APP-10003')]]",
+      "printLegalFormsLink": "//a[contains(text(),'Print Legal Forms for Submission')]",
+      "statusColumn": "//td[contains(@class,'status') and text()='Draft']",
+      "legalFormsSection": "//section[@id='legal-forms']"
+    },
+    "notes": "Edge case: Application not submitted. Link should not be visible."
+  },
+  {
+    "testCaseId": "TCD_FT_01_FR-1_Boundary1",
+    "testCaseName": "Verify link visible when all legal forms uploaded",
+    "priority": "High",
+    "type": "Functional",
+    "preconditions": {
+      "userRole": "FacilityUser",
+      "isLoggedIn": true,
+      "applicationStatus": "Submitted",
+      "requiresLegalForms": true
+    },
+    "applicationData": {
+      "applicationId": "APP-10004",
+      "facilityName": "Complete Forms Center",
+      "facilityId": "FAC-9004",
+      "submissionDate": "2024-06-05T14:30:00Z",
+      "legalFormsRequired": [
+        "Ownership Disclosure",
+        "IRS 501(c)(3) Letter"
+      ],
+      "legalFormsUploaded": [
+        "Ownership Disclosure",
+        "IRS 501(c)(3) Letter"
+      ],
+      "legalFormsPending": []
+    },
+    "user": {
+      "username": "facilityuser4",
+      "password": "Test@3456",
+      "email": "facilityuser4@acredit.org"
+    },
+    "expectedResult": {
+      "printLegalFormsLinkVisible": true,
+      "currentPage": "My Applications"
+    },
+    "locators": {
+      "myApplicationsTab": "//a[contains(text(),'My Applications')]",
+      "applicationRow": "//tr[td[contains(text(),'APP-10004')]]",
+      "printLegalFormsLink": "//a[contains(text(),'Print Legal Forms for Submission')]",
+      "statusColumn": "//td[contains(@class,'status') and text()='Submitted']",
+      "legalFormsSection": "//section[@id='legal-forms']"
+    },
+    "notes": "Boundary case: All legal forms uploaded, link should still be visible."
+  }
+]
