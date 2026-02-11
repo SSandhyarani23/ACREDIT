@@ -1,0 +1,200 @@
+{
+  "testCaseId": "TCD_FT_01_FR-1",
+  "testCaseName": "Verify 'Print Legal Forms for Submission' link visibility for submitted applications",
+  "objective": "Ensure the 'Print Legal Forms for Submission' link is visible when the application is submitted and requires specific documents.",
+  "priority": "High",
+  "type": "Functional",
+  "preconditions": {
+    "userRole": "Facility User",
+    "loginRequired": true,
+    "applicationStatus": "Submitted",
+    "legalFormsRequired": true
+  },
+  "postConditions": {
+    "page": "My Applications"
+  },
+  "locators": [
+    {
+      "name": "PrintLegalFormsLink",
+      "selector": "a[data-testid='print-legal-forms-link']"
+    },
+    {
+      "name": "MyApplicationsTable",
+      "selector": "table[data-testid='my-applications-table']"
+    },
+    {
+      "name": "ApplicationStatusCell",
+      "selector": "td[data-testid='application-status']"
+    },
+    {
+      "name": "ApplicationRow",
+      "selector": "tr[data-testid='application-row']"
+    },
+    {
+      "name": "LegalFormsRequiredIcon",
+      "selector": "span[data-testid='legal-forms-required-icon']"
+    }
+  ],
+  "testData": [
+    {
+      "user": {
+        "username": "facility_user_01",
+        "password": "Test@1234",
+        "role": "Facility User"
+      },
+      "application": {
+        "applicationId": "APP-10001",
+        "facilityName": "Edge Medical Center",
+        "status": "Submitted",
+        "requiresLegalForms": true,
+        "submissionDate": "2024-06-01",
+        "legalForms": [
+          "Form A-1",
+          "Form B-2"
+        ],
+        "documents": [
+          "ID Proof.pdf",
+          "AccreditationAgreement.pdf"
+        ]
+      },
+      "expected": {
+        "printLegalFormsLinkVisible": true
+      }
+    },
+    {
+      "user": {
+        "username": "facility_user_02",
+        "password": "Test@5678",
+        "role": "Facility User"
+      },
+      "application": {
+        "applicationId": "APP-10002",
+        "facilityName": "Boundary Clinic",
+        "status": "Submitted",
+        "requiresLegalForms": false,
+        "submissionDate": "2024-06-02",
+        "legalForms": [],
+        "documents": [
+          "ID Proof.pdf"
+        ]
+      },
+      "expected": {
+        "printLegalFormsLinkVisible": false
+      }
+    },
+    {
+      "user": {
+        "username": "facility_user_03",
+        "password": "Test@9999",
+        "role": "Facility User"
+      },
+      "application": {
+        "applicationId": "APP-10003",
+        "facilityName": "Minimum Edge Hospital",
+        "status": "Submitted",
+        "requiresLegalForms": true,
+        "submissionDate": "2024-06-03",
+        "legalForms": [
+          "Form A-1"
+        ],
+        "documents": [
+          "ID Proof.pdf"
+        ]
+      },
+      "expected": {
+        "printLegalFormsLinkVisible": true
+      }
+    },
+    {
+      "user": {
+        "username": "facility_user_04",
+        "password": "Test@0000",
+        "role": "Facility User"
+      },
+      "application": {
+        "applicationId": "APP-10004",
+        "facilityName": "Maximum Edge Hospital",
+        "status": "Submitted",
+        "requiresLegalForms": true,
+        "submissionDate": "2024-06-04",
+        "legalForms": [
+          "Form A-1",
+          "Form B-2",
+          "Form C-3",
+          "Form D-4",
+          "Form E-5"
+        ],
+        "documents": [
+          "ID Proof.pdf",
+          "AccreditationAgreement.pdf",
+          "AdditionalDoc1.pdf",
+          "AdditionalDoc2.pdf"
+        ]
+      },
+      "expected": {
+        "printLegalFormsLinkVisible": true
+      }
+    },
+    {
+      "user": {
+        "username": "facility_user_05",
+        "password": "Test@Edge",
+        "role": "Facility User"
+      },
+      "application": {
+        "applicationId": "APP-10005",
+        "facilityName": "Special Chars Facility",
+        "status": "Submitted",
+        "requiresLegalForms": true,
+        "submissionDate": "2024-06-05",
+        "legalForms": [
+          "Form-!@#",
+          "Form-中文"
+        ],
+        "documents": [
+          "ID Proof.pdf",
+          "特殊字符.pdf"
+        ]
+      },
+      "expected": {
+        "printLegalFormsLinkVisible": true
+      }
+    }
+  ],
+  "edgeCases": [
+    {
+      "description": "Application submitted but legal forms not required",
+      "application": {
+        "applicationId": "APP-10006",
+        "status": "Submitted",
+        "requiresLegalForms": false
+      },
+      "expected": {
+        "printLegalFormsLinkVisible": false
+      }
+    },
+    {
+      "description": "Application not submitted (Draft)",
+      "application": {
+        "applicationId": "APP-10007",
+        "status": "Draft",
+        "requiresLegalForms": true
+      },
+      "expected": {
+        "printLegalFormsLinkVisible": false
+      }
+    },
+    {
+      "description": "Application submitted, legal forms required but no documents uploaded",
+      "application": {
+        "applicationId": "APP-10008",
+        "status": "Submitted",
+        "requiresLegalForms": true,
+        "documents": []
+      },
+      "expected": {
+        "printLegalFormsLinkVisible": true
+      }
+    }
+  ]
+}
