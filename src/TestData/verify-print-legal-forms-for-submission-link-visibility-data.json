@@ -1,0 +1,116 @@
+// Test data for: Verify 'Print Legal Forms for Submission' link visibility for submitted applications
+[
+  {
+    "testCaseId": "TCD_FT_01_FR-1",
+    "description": "Submitted application with required legal forms, standard data.",
+    "user": {
+      "role": "FacilityUser",
+      "username": "facility_user_01",
+      "password": "Test@1234"
+    },
+    "application": {
+      "applicationId": "APP-10001",
+      "status": "Submitted",
+      "requiresLegalForms": true,
+      "facilityName": "Sunrise Imaging Center",
+      "submissionDate": "2024-05-01",
+      "legalForms": [
+        "Ownership Disclosure",
+        "Medical Director Agreement"
+      ]
+    },
+    "expected": {
+      "printLegalFormsLinkVisible": true
+    }
+  },
+  {
+    "testCaseId": "TCD_FT_01_FR-1",
+    "description": "Edge case: Application submitted but does NOT require legal forms.",
+    "user": {
+      "role": "FacilityUser",
+      "username": "facility_user_02",
+      "password": "Test@1234"
+    },
+    "application": {
+      "applicationId": "APP-10002",
+      "status": "Submitted",
+      "requiresLegalForms": false,
+      "facilityName": "Boundary Medical Center",
+      "submissionDate": "2024-05-02",
+      "legalForms": []
+    },
+    "expected": {
+      "printLegalFormsLinkVisible": false
+    }
+  },
+  {
+    "testCaseId": "TCD_FT_01_FR-1",
+    "description": "Edge case: Application not submitted (status: In Progress), legal forms required.",
+    "user": {
+      "role": "FacilityUser",
+      "username": "facility_user_03",
+      "password": "Test@1234"
+    },
+    "application": {
+      "applicationId": "APP-10003",
+      "status": "In Progress",
+      "requiresLegalForms": true,
+      "facilityName": "Edge Case Clinic",
+      "submissionDate": null,
+      "legalForms": [
+        "Ownership Disclosure"
+      ]
+    },
+    "expected": {
+      "printLegalFormsLinkVisible": false
+    }
+  },
+  {
+    "testCaseId": "TCD_FT_01_FR-1",
+    "description": "Boundary: Application with maximum number of legal forms required.",
+    "user": {
+      "role": "FacilityUser",
+      "username": "facility_user_04",
+      "password": "Test@1234"
+    },
+    "application": {
+      "applicationId": "APP-10004",
+      "status": "Submitted",
+      "requiresLegalForms": true,
+      "facilityName": "Boundary Test Hospital",
+      "submissionDate": "2024-05-03",
+      "legalForms": [
+        "Ownership Disclosure",
+        "Medical Director Agreement",
+        "Financial Disclosure",
+        "Staff Roster",
+        "Equipment List"
+      ]
+    },
+    "expected": {
+      "printLegalFormsLinkVisible": true
+    }
+  },
+  {
+    "testCaseId": "TCD_FT_01_FR-1",
+    "description": "Edge: Application with empty facility name.",
+    "user": {
+      "role": "FacilityUser",
+      "username": "facility_user_05",
+      "password": "Test@1234"
+    },
+    "application": {
+      "applicationId": "APP-10005",
+      "status": "Submitted",
+      "requiresLegalForms": true,
+      "facilityName": "",
+      "submissionDate": "2024-05-04",
+      "legalForms": [
+        "Ownership Disclosure"
+      ]
+    },
+    "expected": {
+      "printLegalFormsLinkVisible": true
+    }
+  }
+]

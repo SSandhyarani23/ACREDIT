@@ -86,4 +86,41 @@ export class MyApplicationsPage extends BasePage {
   async signOut(): Promise<void> {
     await this.signOutLink.click();
   }
+
+  /**
+   * Navigates to the 'My Applications' page and verifies that the 'Print Legal Forms for Submission' link is visible for a submitted application that requires legal forms.
+   * This method encapsulates the workflow: navigation, locating the correct application, and validating link visibility.
+   * @param applicationId - The unique identifier for the submitted application
+   * @param facilityName - The facility name associated with the application
+   */
+  async verifyPrintLegalFormsLinkForSubmittedApplication(applicationId: string, facilityName: string): Promise<void> {
+    // Ensure we are on My Applications page
+    await this.expectOnMyApplicationsPage();
+    await this.waitForLoad();
+
+    // Optionally sort or filter to find the submitted application
+    // (Assume sortCreatedOnAscending() helps bring latest to top)
+    await this.sortCreatedOnAscending();
+
+    // Validate application exists in the list
+    await this.validateApplicationExists(applicationId, facilityName);
+
+    // Select the application row (if needed)
+    await this.selectApplicationById(applicationId);
+    await this.waitForApplicationDetailsLoad();
+
+    // Assert the 'Print Legal Forms for Submission' link is visible
+    await this.verifyPrintLegalFormsLink();
+  }
+
+  /**
+   * Checks if the 'Print Legal Forms for Submission' link is visible for the currently selected application.
+   * Returns true if visible, false otherwise.
+   */
+  async isPrintLegalFormsForSubmissionLinkVisible(): Promise<boolean> {
+    // The link can be identified by link text or partial link text or CSS selector
+    // Reuse existing locator strategy for the link
+    const printLegalFormsLink = this.page.locator("a[href*='ViewLegalForms']");
+    return await printLegalFormsLink.isVisible();
+  }
 }
