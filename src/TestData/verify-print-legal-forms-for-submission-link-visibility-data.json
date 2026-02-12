@@ -1,0 +1,145 @@
+// Test data for TCD_FT_01_FR-1: Verify 'Print Legal Forms for Submission' link visibility for submitted applications
+[
+  {
+    "testCaseId": "TCD_FT_01_FR-1",
+    "description": "Submitted application requiring legal forms - standard case",
+    "user": {
+      "role": "FacilityUser",
+      "username": "facility_user_01",
+      "password": "Password123!"
+    },
+    "application": {
+      "applicationId": "APP-10001",
+      "status": "Submitted",
+      "requiresLegalForms": true,
+      "facilityName": "Sunrise Medical Center",
+      "submissionDate": "2024-06-01T10:15:00Z",
+      "legalForms": [
+        "Ownership Disclosure",
+        "Medical Director Agreement"
+      ]
+    },
+    "expected": {
+      "printLegalFormsLinkVisible": true
+    },
+    "locators": {
+      "myApplicationsTab": "#my-applications-tab",
+      "applicationRow": "tr[data-app-id='APP-10001']",
+      "printLegalFormsLink": "a#print-legal-forms-link",
+      "statusColumn": ".status-col",
+      "legalFormsRequiredIcon": ".icon-legal-forms-required"
+    }
+  },
+  {
+    "testCaseId": "TCD_FT_01_FR-1",
+    "description": "Edge case: Application submitted but does NOT require legal forms",
+    "user": {
+      "role": "FacilityUser",
+      "username": "facility_user_02",
+      "password": "Password123!"
+    },
+    "application": {
+      "applicationId": "APP-10002",
+      "status": "Submitted",
+      "requiresLegalForms": false,
+      "facilityName": "Valley Diagnostic Center",
+      "submissionDate": "2024-06-01T11:00:00Z",
+      "legalForms": []
+    },
+    "expected": {
+      "printLegalFormsLinkVisible": false
+    },
+    "locators": {
+      "myApplicationsTab": "#my-applications-tab",
+      "applicationRow": "tr[data-app-id='APP-10002']",
+      "printLegalFormsLink": "a#print-legal-forms-link",
+      "statusColumn": ".status-col",
+      "legalFormsRequiredIcon": ".icon-legal-forms-required"
+    }
+  },
+  {
+    "testCaseId": "TCD_FT_01_FR-1",
+    "description": "Edge case: Application in 'Draft' status, requires legal forms",
+    "user": {
+      "role": "FacilityUser",
+      "username": "facility_user_03",
+      "password": "Password123!"
+    },
+    "application": {
+      "applicationId": "APP-10003",
+      "status": "Draft",
+      "requiresLegalForms": true,
+      "facilityName": "Metro Health Clinic",
+      "submissionDate": null,
+      "legalForms": [
+        "Ownership Disclosure"
+      ]
+    },
+    "expected": {
+      "printLegalFormsLinkVisible": false
+    },
+    "locators": {
+      "myApplicationsTab": "#my-applications-tab",
+      "applicationRow": "tr[data-app-id='APP-10003']",
+      "printLegalFormsLink": "a#print-legal-forms-link",
+      "statusColumn": ".status-col",
+      "legalFormsRequiredIcon": ".icon-legal-forms-required"
+    }
+  },
+  {
+    "testCaseId": "TCD_FT_01_FR-1",
+    "description": "Boundary: Application just submitted, legal forms required",
+    "user": {
+      "role": "FacilityUser",
+      "username": "facility_user_04",
+      "password": "Password123!"
+    },
+    "application": {
+      "applicationId": "APP-10004",
+      "status": "Submitted",
+      "requiresLegalForms": true,
+      "facilityName": "Pinecrest Imaging",
+      "submissionDate": "2024-06-01T23:59:59Z",
+      "legalForms": [
+        "Medical Director Agreement"
+      ]
+    },
+    "expected": {
+      "printLegalFormsLinkVisible": true
+    },
+    "locators": {
+      "myApplicationsTab": "#my-applications-tab",
+      "applicationRow": "tr[data-app-id='APP-10004']",
+      "printLegalFormsLink": "a#print-legal-forms-link",
+      "statusColumn": ".status-col",
+      "legalFormsRequiredIcon": ".icon-legal-forms-required"
+    }
+  },
+  {
+    "testCaseId": "TCD_FT_01_FR-1",
+    "description": "Negative: Application already approved, legal forms previously required",
+    "user": {
+      "role": "FacilityUser",
+      "username": "facility_user_05",
+      "password": "Password123!"
+    },
+    "application": {
+      "applicationId": "APP-10005",
+      "status": "Approved",
+      "requiresLegalForms": false,
+      "facilityName": "Lakeside Hospital",
+      "submissionDate": "2024-05-20T09:00:00Z",
+      "legalForms": []
+    },
+    "expected": {
+      "printLegalFormsLinkVisible": false
+    },
+    "locators": {
+      "myApplicationsTab": "#my-applications-tab",
+      "applicationRow": "tr[data-app-id='APP-10005']",
+      "printLegalFormsLink": "a#print-legal-forms-link",
+      "statusColumn": ".status-col",
+      "legalFormsRequiredIcon": ".icon-legal-forms-required"
+    }
+  }
+]
