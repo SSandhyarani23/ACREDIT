@@ -25,9 +25,11 @@ test.describe('TCD_FT_01_FR-1: Print Legal Forms for Submission link visibility'
       await myApplicationsPage.waitForApplicationDetailsLoad();
 
       // Assert: Check visibility of 'Print Legal Forms for Submission' link
-      const isVisible = await myApplicationsPage.isPrintLegalFormsForSubmissionLinkVisible();
-      expect(isVisible).toBe(data.expected.printLegalFormsLinkVisible);
-
+      const isVisible = await myApplicationsPage.isPrintLegalFormsForSubmissionLinkVisibleForApplication(data.application.applicationId);
+      expect(isVisible).toBe(
+        data.expected.printLegalFormsLinkVisible,
+        `TestCaseId: ${data.testCaseId} | ApplicationId: ${data.application.applicationId} | Facility: '${data.application.facilityName}' | Expected 'Print Legal Forms for Submission' link to be ${data.expected.printLegalFormsLinkVisible ? 'VISIBLE' : 'NOT VISIBLE'} but found ${isVisible ? 'VISIBLE' : 'NOT VISIBLE'}.`
+      );
       // Post-condition: User remains on My Applications page (implicit)
     });
   }
