@@ -11,8 +11,8 @@ export class MyApplicationsPage extends BasePage {
   private printLegalFormsLink: Locator;
   private applicationGrid: Locator;
   private signOutLink: Locator;
-  private printLegalForms:Locator;
-  private viewSubmittedApplication:Locator;
+  private printLegalForms: Locator;
+  private viewSubmittedApplication: Locator;
 
   constructor(page: Page) {
     super(page);
@@ -122,5 +122,22 @@ export class MyApplicationsPage extends BasePage {
     // Reuse existing locator strategy for the link
     const printLegalFormsLink = this.page.locator("a[href*='ViewLegalForms']");
     return await printLegalFormsLink.isVisible();
+  }
+
+  /**
+   * Checks if the 'Print Legal Forms for Submission' link is visible for a specific application row, identified by applicationId.
+   * This method ensures robust scoping by locating the link only within the targeted application's row, avoiding false positives from other rows.
+   * Usage: await page.isPrintLegalFormsForSubmissionLinkVisibleForApplication(applicationId)
+   * @param applicationId - The unique identifier for the application row
+   * @returns Promise<boolean> - true if the link is visible in the specified row, false otherwise
+   */
+  async isPrintLegalFormsForSubmissionLinkVisibleForApplication(applicationId: string): Promise<boolean> {
+    // Select the application row by its data-testid attribute
+    const rowLocator = this.page.locator(`[data-testid="application-row-${applicationId}"]`);
+    // Wait for the row to be loaded/visible
+    await rowLocator.waitFor({ state: 'visible' });
+    // Find the link within this row only
+    const linkInRow = rowLocator.locator("a[href*='ViewLegalForms']");
+    return await linkInRow.isVisible();
   }
 }

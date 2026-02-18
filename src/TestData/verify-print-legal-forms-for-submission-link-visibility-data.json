@@ -112,5 +112,29 @@
     "expected": {
       "printLegalFormsLinkVisible": true
     }
+  },
+  {
+    "testCaseId": "TCD_FT_01_FR-1",
+    "description": "Additional: Submitted application with multiple required legal forms, expects link visible.",
+    "user": {
+      "role": "FacilityUser",
+      "username": "facility_user_06",
+      "password": "Test@1234"
+    },
+    "application": {
+      "applicationId": "APP-10006",
+      "status": "Submitted",
+      "requiresLegalForms": true,
+      "facilityName": "Central City Imaging",
+      "submissionDate": "2024-05-05",
+      "legalForms": [
+        "Ownership Disclosure",
+        "Medical Director Agreement",
+        "Staff Roster"
+      ]
+    },
+    "expected": {
+      "printLegalFormsLinkVisible": true
+    }
   }
 ]
