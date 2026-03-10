@@ -33,7 +33,10 @@ export class CTModalityPage {
   private adultCheckbox: Locator;
   private headNeckCheckbox: Locator;
   private nextExamSelectionButton: Locator;
-  
+
+  // Nuclear Medicine Modality Locators
+  private nuclearMedicineCheckbox: Locator;
+  private nuclearMedicineIsApplyingForRadio: Locator;
 
   constructor(page: Page) {
     this.page = page;
@@ -41,6 +44,12 @@ export class CTModalityPage {
     // Modality
     this.computedTomographyCheckbox = page.getByRole('checkbox', { name: 'Computed Tomography' });
     this.nextModalityInfoButton = page.getByRole('button', { name: /Next: Modality Information/i }).nth(1);
+
+    // Nuclear Medicine Modality
+    // Find the checkbox for Nuclear Medicine by label or by index if needed
+    this.nuclearMedicineCheckbox = page.locator('input[id="ModalitySelectionList_3__IsModalityPerformed"][type="checkbox"]');
+    // The radio for 'Is Applying For' for Nuclear Medicine
+    this.nuclearMedicineIsApplyingForRadio = page.locator('input[id="ModalitySelectionList_3__IsApplyingFor"][type="radio"]');
 
     // Supervising Physician
     this.supervisingPhysicianRow = page.getByRole('row', { name: /Computed Tomography Supervising Physician/i });
@@ -82,9 +91,24 @@ export class CTModalityPage {
     await this.nextModalityInfoButton.click();
   }
 
-    /* ---------------- Modality Selection ---------------- */
+  /* ---------------- Modality Selection ---------------- */
   async selectnextModalityInCMSInfo(): Promise<void> {
     await this.page.waitForTimeout(1000);    
+    await this.nextModalityInfoButton.click();
+  }
+
+  /* ---------------- Nuclear Medicine Modality Selection ---------------- */
+  async selectNuclearMedicineModality(): Promise<void> {
+    // Wait for the Nuclear Medicine row to be visible
+    await this.page.waitForTimeout(1000);
+    // Check the 'Is Modality Performed' checkbox for Nuclear Medicine
+    await this.nuclearMedicineCheckbox.waitFor({ state: 'visible' });
+    await this.nuclearMedicineCheckbox.check();
+    // Check the 'Is Applying For' radio for Nuclear Medicine
+    await this.nuclearMedicineIsApplyingForRadio.waitFor({ state: 'visible' });
+    await this.nuclearMedicineIsApplyingForRadio.check();
+    // Click Next to go to Modality Information
+    await this.nextModalityInfoButton.waitFor({ state: 'visible' });
     await this.nextModalityInfoButton.click();
   }
 
